@@ -46,7 +46,10 @@ echo "==> configure (musl-static + minimal)"
 	--disable-nls )
 
 echo "==> make"
-( cd "$BUILD_DIR" && make -j"$(getconf _NPROCESSORS_ONLN)" )
+# Pass LDFLAGS to make too (not just configure) so the link step
+# actually uses -static. Some autotools projects (xz-utils) bake in
+# LDFLAGS at configure time and ignore env-var changes at make.
+( cd "$BUILD_DIR" && make -j"$(getconf _NPROCESSORS_ONLN)" LDFLAGS="-static" )
 
 echo "==> strip"
 strip "$BUILD_DIR/src/xz/xz" "$BUILD_DIR/src/xzdec/xzdec" "$BUILD_DIR/src/lzmainfo/lzmainfo" 2>/dev/null || true
