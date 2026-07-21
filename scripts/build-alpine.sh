@@ -45,10 +45,19 @@ echo "==> configure (musl-static + minimal)"
 	--disable-doc \
 	--disable-nls )
 
+echo "==> post-configure sed: force static liblzma link (xz-utils doesn't honor -static in libtool)"
+
+( cd "$BUILD_DIR" && \
+	find . -name Makefile -print0 | xargs -0 sed -i '' \
+		-e 's|../../src/liblzma/liblzma\.la|../../src/liblzma/.libs/liblzma.a|g' \
+		-e 's|src/liblzma/liblzma\.la|src/liblzma/.libs/liblzma.a|g' \
+		-e 's|liblzma\.la|liblzma.a|g' \
+)
+
 echo "==> make"
 # Pass LDFLAGS to make too (not just configure) so the link step
-# actually uses -static. Some autotools projects (xz-utils) bake in
-# LDFLAGS at configure time and ignore env-var changes at make.
+# actually uses -static. xz-utils' libtool bakes LDFLAGS at configure
+# time; we override at make.
 ( cd "$BUILD_DIR" && make -j"$(getconf _NPROCESSORS_ONLN)" LDFLAGS="-static" )
 
 echo "==> strip"
