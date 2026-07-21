@@ -36,7 +36,8 @@ echo "==> configure (musl-static + minimal)"
 # (no /lib/ld-musl-x86_64.so.1 dynamic linker dependency). xz-utils
 # doesn't have an --enable-static-bin option like iperf3, so we
 # append it manually. musl-only — on macOS ld rejects -static.
-( cd "$BUILD_DIR" && LDFLAGS="-static $LDFLAGS" "$SRC/configure" --srcdir="$SRC" \
+# Note: ${LDFLAGS:-} handles unset (set -eu makes unbound vars fail).
+( cd "$BUILD_DIR" && LDFLAGS="-static ${LDFLAGS:-}" "$SRC/configure" --srcdir="$SRC" \
 	--disable-dependency-tracking \
 	--disable-silent-rules \
 	--disable-shared \
