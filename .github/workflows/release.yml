@@ -5,7 +5,7 @@ name: release
 #
 # Build matrix matches build-and-test.yml so a tag push produces a
 # release in one shot.
-on:
+"on":
   workflow_dispatch:
   push:
     tags: ['v*']

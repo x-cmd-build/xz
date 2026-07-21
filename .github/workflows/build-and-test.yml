@@ -7,7 +7,7 @@ name: build-and-test
 #   - tag push / dispatch → release.yml (publish stage)
 #
 # Matrix matches ljh-sh/iperf: linux-musl x2 + macos x2 + windows x1.
-on:
+"on":
   push:
     branches: [main]
     tags: ['v*']
