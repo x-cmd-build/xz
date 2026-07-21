@@ -47,8 +47,10 @@ echo "==> configure (musl-static + minimal)"
 
 echo "==> post-configure sed: force static liblzma link (xz-utils doesn't honor -static in libtool)"
 
+# Use portable sed (-i with no arg = GNU sed; for BSD sed, this would
+# be a backup suffix). Alpine's busybox sed uses GNU syntax.
 ( cd "$BUILD_DIR" && \
-	find . -name Makefile -print0 | xargs -0 sed -i '' \
+	find . -name Makefile -print0 | xargs -0 sed -i \
 		-e 's|../../src/liblzma/liblzma\.la|../../src/liblzma/.libs/liblzma.a|g' \
 		-e 's|src/liblzma/liblzma\.la|src/liblzma/.libs/liblzma.a|g' \
 		-e 's|liblzma\.la|liblzma.a|g' \
