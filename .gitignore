@@ -3,10 +3,9 @@ build/
 dist/
 release-artifacts/
 
-# upstream xz build outputs
-upstream/xz/src/xz
-upstream/xz/src/xzdec
-upstream/xz/src/lzmainfo
+# upstream xz build outputs (xz source dirs are NOT excluded — that was
+# a copy-paste bug from iperf pattern. xz puts outputs in src/xz/xz etc.
+# but the source dirs themselves are NOT build outputs.)
 upstream/xz/src/.libs/
 upstream/xz/Makefile
 upstream/xz/config.h
@@ -16,6 +15,12 @@ upstream/xz/stamp-h1
 upstream/xz/libtool
 upstream/xz/aclocal.m4
 upstream/xz/po/Makefile.in
+upstream/xz/src/xz/args.o
+upstream/xz/src/xz/coder.o
+upstream/xz/src/xz/*.o
+upstream/xz/src/xzdec/*.o
+upstream/xz/src/lzmainfo/*.o
+upstream/xz/src/liblzma/*.o
 # bootstrap artifacts (gitignored in upstream, kept here for offline build)
 !upstream/xz/configure
 !upstream/xz/aclocal.m4
