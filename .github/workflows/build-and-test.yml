@@ -29,8 +29,8 @@ jobs:
           - { target: aarch64-macos,      runner: macos-latest,     os: macos }
           - { target: x86_64-macos,       runner: macos-latest,     os: macos }
           - { target: x86_64-windows,     runner: windows-latest,   os: windows }
-      # aarch64-windows deferred — MSYS2 toolchain gap (ljh-sh-dist memory)
-      continue-on-error: ${{ matrix.target == 'aarch64-windows' }}
+          # aarch64-windows deferred — MSYS2 toolchain gap (ljh-sh-dist memory)
+          continue-on-error: ${{ matrix.target == 'aarch64-windows' }}
     env:
       TARGET: ${{ matrix.target }}
     steps:

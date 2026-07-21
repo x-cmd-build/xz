@@ -27,7 +27,7 @@ jobs:
           - { target: aarch64-macos,      runner: macos-latest,     os: macos }
           - { target: x86_64-macos,       runner: macos-latest,     os: macos }
           - { target: x86_64-windows,     runner: windows-latest,   os: windows }
-      continue-on-error: ${{ matrix.target == 'aarch64-windows' }}
+          continue-on-error: ${{ matrix.target == 'aarch64-windows' }}
     env:
       TARGET: ${{ matrix.target }}
     steps:
