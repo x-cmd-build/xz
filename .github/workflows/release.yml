@@ -5,16 +5,19 @@ name: release
 #
 # Build matrix matches build-and-test.yml so a tag push produces a
 # release in one shot.
-"on":
+on:
   workflow_dispatch:
   push:
     tags: ['v*']
+
 permissions:
   contents: write
   actions: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ${{ matrix.runner }}
@@ -27,7 +30,6 @@ jobs:
           - { target: aarch64-macos,      runner: macos-latest,     os: macos }
           - { target: x86_64-macos,       runner: macos-latest,     os: macos }
           - { target: x86_64-windows,     runner: windows-latest,   os: windows }
-          continue-on-error: ${{ matrix.target == 'aarch64-windows' }}
     env:
       TARGET: ${{ matrix.target }}
     steps:
@@ -50,8 +52,11 @@ jobs:
           msystem: MSYS
           update: true
           install: >-
-            git autoconf automake libtool
-            make base-devel
+            git
+            autoconf
+            automake
+            libtool
+            make
             gcc
 
       - name: Build on Alpine (musl)
