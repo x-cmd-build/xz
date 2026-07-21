@@ -1,0 +1,8 @@
+# x-cmd-build/xz policy: PR requires both maintainers per
+# [[ljh-sh-domain-rename]] PR approval rule.
+*                       @ljh-zs @edwinjhlee
+
+# Release workflow changes require explicit owner review
+/.github/workflows/release.yml    @ljh-zs @edwinjhlee
+/scripts/package.sh               @ljh-zs @edwinjhlee
+/scripts/package.ps1              @ljh-zs @edwinjhlee

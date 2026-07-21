@@ -1,0 +1,30 @@
+# build artifacts
+build/
+dist/
+release-artifacts/
+
+# upstream xz build outputs
+upstream/xz/src/xz
+upstream/xz/src/xzdec
+upstream/xz/src/lzmainfo
+upstream/xz/src/.libs/
+upstream/xz/Makefile
+upstream/xz/config.h
+upstream/xz/config.log
+upstream/xz/config.status
+upstream/xz/stamp-h1
+upstream/xz/libtool
+upstream/xz/aclocal.m4
+upstream/xz/po/Makefile.in
+# bootstrap artifacts (gitignored in upstream, kept here for offline build)
+!upstream/xz/configure
+!upstream/xz/aclocal.m4
+!upstream/xz/Makefile.in
+!upstream/xz/config.h.in
+!upstream/xz/po/Makefile.in.in
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
