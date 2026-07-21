@@ -10,7 +10,10 @@ name: build-and-test
 on:
   push:
     branches: [main]
+    tags: ['v*']
   pull_request:
+    branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
   actions: read
@@ -53,8 +56,11 @@ jobs:
           msystem: MSYS
           update: true
           install: >-
-            git autoconf automake libtool
-            make base-devel
+            git
+            autoconf
+            automake
+            libtool
+            make
             gcc
 
       - name: Build + smoke on Alpine (musl)
