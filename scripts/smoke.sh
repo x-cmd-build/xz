@@ -4,7 +4,9 @@
 set -eu
 
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
-BIN="${XZ_BIN:-$ROOT/build/src/xz/xz}"
+# Use XZ_BIN env var if set (CI sets it to absolute path), else relative
+# path for local runs.
+BIN="${XZ_BIN:-${BUILD_DIR:-$ROOT/build}/src/xz/xz}"
 
 [ -x "$BIN" ] || { echo "error: $BIN not found or not executable" >&2; exit 1; }
 
