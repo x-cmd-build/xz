@@ -8,7 +8,8 @@
 #                         && bash /w/scripts/build-alpine.sh'
 set -eu
 
-apk add --no-cache build-base autoconf automake libtool bash
+apk add --no-cache build-base autoconf automake libtool \
+	autoconf-archive gettext-dev pkgconfig bash python3
 
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 SRC="$ROOT/upstream/xz"
