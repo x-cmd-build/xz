@@ -21,8 +21,12 @@ BUILD_DIR="${BUILD_DIR:-/tmp/build}"
 # xz ships a configure script in its tarball — use it directly.
 # If missing, fall back to autogen.sh.
 if [ ! -x "$SRC/configure" ]; then
-	echo "==> running autogen.sh (configure missing)"
-	( cd "$SRC" && sh autogen.sh )
+	echo "==> running autoreconf -fi (xz 5.8.3 ships only configure.ac, no configure)"
+	# Use autoreconf instead of upstream autogen.sh — autogen.sh runs
+	# autoconf BEFORE automake (wrong order), which fails with
+	# "src/xz/Makefile.in not found". autoreconf runs them in the
+	# correct order: aclocal → libtoolize → automake → autoconf.
+	( cd "$SRC" && autoreconf -fi )
 fi
 
 mkdir -p "$BUILD_DIR"

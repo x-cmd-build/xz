@@ -15,7 +15,7 @@ JOBS="$(getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.nproc 2>/dev/null 
 ( cd "$SRC" && find . -maxdepth 3 -name Makefile -delete -o -name config.h -delete -o -name config.status -delete 2>/dev/null || true )
 
 if [ ! -x "$SRC/configure" ]; then
-	( cd "$SRC" && sh autogen.sh )
+	( cd "$SRC" && autoreconf -fi )
 fi
 
 mkdir -p "$BUILD_DIR"
