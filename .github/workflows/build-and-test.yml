@@ -16,7 +16,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: x86_64-linux-musl, runner: ubuntu-latest,    os: linux, libc: musl, docker_arch: amd64 }
+          - { target: aarch64-linux-musl, runner: ubuntu-24.04-arm, os: linux, libc: musl, docker_arch: arm64 }
+          - { target: aarch64-macos, runner: macos-latest, os: macos }
+          - { target: x86_64-macos, runner: macos-latest, os: macos }
+          - { target: x86_64-windows, runner: windows-latest, os: windows }
     steps:
-      - run: echo "hello with permissions + concurrency"
+      - run: echo "hello target=${{ matrix.target }} os=${{ matrix.os }} docker_arch=${{ matrix.docker_arch }}"
