@@ -58,6 +58,9 @@ jobs:
             libtool
             make
             gcc
+            gettext
+            pkg-config
+            autoconf-archive
 
       - name: Build on Alpine (musl)
         if: matrix.libc == 'musl'
