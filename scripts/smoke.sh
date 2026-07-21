@@ -26,7 +26,10 @@ echo "==> compress + decompress round-trip"
 COMPRESSED_SIZE=$(wc -c < "$INPUT.xz")
 echo "    $ORIG_SIZE → $COMPRESSED_SIZE bytes (compressed)"
 
-"$BIN" -dk "$INPUT.xz"
+# xz refuses to overwrite the source file by default; remove it first
+# so we can verify round-trip without -k on decompress.
+rm -f "$INPUT"
+"$BIN" -d "$INPUT.xz"
 [ -f "$INPUT" ] || { echo "FAIL: $INPUT not restored"; exit 1; }
 ROUNDTRIP_SIZE=$(wc -c < "$INPUT")
 [ "$ORIG_SIZE" = "$ROUNDTRIP_SIZE" ] || { echo "FAIL: size mismatch $ORIG_SIZE vs $ROUNDTRIP_SIZE"; exit 1; }
